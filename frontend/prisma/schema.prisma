@@ -1,0 +1,304 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  GOOGLE
+  GITHUB
+  CREDENTIALS
+}
+
+enum OpportunityType {
+  JOB
+  INTERNSHIP
+  HACKATHON
+  SCHOLARSHIP
+  COMPETITION
+  EVENT
+  OPEN_SOURCE
+  FREELANCING
+}
+
+enum ApplicationStatus {
+  SAVED
+  APPLIED
+  INTERVIEW
+  ASSESSMENT
+  OFFER
+  REJECTED
+  NOT_INTERESTED
+  ARCHIVED
+}
+
+enum ExperienceLevel {
+  FRESHER
+  JUNIOR
+  MID
+  SENIOR
+  ANY
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model User {
+  id             String          @id @default(cuid())
+  name           String?
+  email          String?         @unique
+  emailVerified  DateTime?
+  image          String?
+  password       String?
+  authProvider   AuthProvider?   @default(CREDENTIALS)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  // Profile
+  profile        Profile?
+  accounts       Account[]
+  sessions       Session[]
+  applications   Application[]
+  notifications  Notification[]
+
+  @@map("users")
+}
+
+model Profile {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+
+  // Legacy / education basics
+  college           String?
+  degree            String?
+  branch            String?
+  graduationYear    Int?
+  cgpa              Float?
+  skills            String[] @default([])
+  preferredRoles    String[] @default([])
+  preferredLocations String[] @default([])
+  preferredCompanies String[] @default([])
+  interests         String[] @default([])
+
+  // Basic Information
+  phone             String?
+  city              String?
+  country           String?
+  timeZone          String?
+  nationality       String?
+  workAuthorization String?
+  visaSponsorshipRequired Boolean?
+
+  // Job Preferences
+  jobType           String?
+  workMode          String?
+  minSalary         Float?
+  targetSalary      Float?
+  noticePeriod      String?
+  earliestJoining   String?
+  willingToRelocate Boolean?
+
+  // Education extras
+  specialization    String?
+  university        String?
+  relevantCoursework String[] @default([])
+
+  // Experience
+  currentStatus     String?
+  yearsOfExperience Float?
+  currentCompany    String?
+  previousCompanies String[] @default([])
+  hasInternships    Boolean?
+  hasFreelancing    Boolean?
+  hasResearch       Boolean?
+  hasTeaching       Boolean?
+  hasOpenSource     Boolean?
+  experienceEntries Json?
+
+  // Technical Skills (structured categories)
+  programmingLanguages String[] @default([])
+  frameworks           String[] @default([])
+  libraries            String[] @default([])
+  databases            String[] @default([])
+  cloudPlatforms       String[] @default([])
+  devopsTools          String[] @default([])
+  aiMlTechnologies     String[] @default([])
+  dataAnalysisTools    String[] @default([])
+  designTools          String[] @default([])
+  softSkills           String[] @default([])
+  skillProficiency     Json?
+
+  // Resume & Portfolio
+  resumeUrl         String?
+  portfolioUrl      String?
+  githubUrl         String?
+  linkedinUrl       String?
+  leetcodeUrl       String?
+  codechefUrl       String?
+  hackerrankUrl     String?
+  kaggleUrl         String?
+  personalWebsite   String?
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  projects Project[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  profileId   String
+  title       String
+  description String?
+  technologies String[] @default([])
+  link        String?
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("projects")
+}
+
+model Opportunity {
+  id              String          @id @default(cuid())
+  title           String
+  company         String
+  description     String?
+  shortDescription String?
+  type            OpportunityType
+  location        String?
+  locationType    String?         @default("On-site")
+  salary          String?
+  stipend         String?
+  currency        String?         @default("INR")
+  experienceLevel ExperienceLevel @default(ANY)
+  deadline        DateTime?
+  postedDate      DateTime?
+  url             String?
+  source          String
+  sourceId        String?
+  skills          String[]        @default([])
+  eligibility     String?
+  responsibilities String[]       @default([])
+  isActive        Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  applications    Application[]
+
+  @@unique([source, sourceId])
+  @@index([type])
+  @@index([isActive])
+  @@index([createdAt])
+  @@map("opportunities")
+}
+
+model Application {
+  id              String            @id @default(cuid())
+  userId          String
+  opportunityId   String
+  status          ApplicationStatus @default(SAVED)
+  fitScore        Float?
+  fitExplanation  String?
+  matchedSkills   String[]          @default([])
+  missingSkills   String[]          @default([])
+  notes           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, opportunityId])
+  @@index([userId])
+  @@index([status])
+  @@map("applications")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String?
+  type      String   @default("INFO")
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@map("notifications")
+}
+
+model AgentLog {
+  id         String   @id @default(cuid())
+  agentName  String
+  action     String
+  status     String   @default("RUNNING")
+  input      Json?
+  output     Json?
+  error      String?
+  startedAt  DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([agentName])
+  @@index([status])
+  @@map("agent_logs")
+}
+
+model CacheEntry {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  expiresAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([key])
+  @@map("cache_entries")
+}
