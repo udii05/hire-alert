@@ -1,5 +1,7 @@
 # Hire Alert
 
+**Live deployed link:** https://hire-alert.vercel.app/
+
 An AI-driven job and opportunity discovery platform that aggregates listings from multiple public sources, evaluates each opportunity against a user's professional profile, and delivers a curated, deadline-prioritized board with in-app and email alerts.
 
 Hire Alert covers full-time roles, internships, hackathons, competitions, scholarships, and freelance engagements. Every opportunity receives a computed fit score (0-100) and is classified into a deadline-based priority tier. Only opportunities meeting a strict 75% eligibility threshold are surfaced to the user.
