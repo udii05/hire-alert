@@ -16,6 +16,13 @@ class Settings(BaseSettings):
     # Auth
     backend_api_key: str = "backend-api-key-change-in-production"
 
+    # CORS: comma-separated list of allowed frontend origins
+    allowed_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [o.strip() for o in self.allowed_origins.split(",") if o.strip()]
+
     # Agent settings
     agent_poll_interval: int = 60
     agent_batch_size: int = 10

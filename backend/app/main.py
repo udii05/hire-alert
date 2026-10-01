@@ -24,6 +24,13 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifecycle management."""
+    # Fail fast if production is running with the placeholder API key
+    if not settings.debug and settings.backend_api_key == "backend-api-key-change-in-production":
+        raise RuntimeError(
+            "BACKEND_API_KEY is set to the insecure default. "
+            "Set a strong BACKEND_API_KEY in the environment, or run with DEBUG=true for local development."
+        )
+
     logger.info(f"Starting {settings.app_name}")
     try:
         await init_db()
@@ -58,10 +65,10 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# CORS middleware
+# CORS middleware (origins configured via ALLOWED_ORIGINS env var)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

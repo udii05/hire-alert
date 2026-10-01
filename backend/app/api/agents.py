@@ -1,12 +1,12 @@
 import logging
 import uuid
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, Header
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.database import get_db
 from app.agents.orchestrator import OrchestratorAgent
-from app.core.config import settings
+from app.core.security import verify_api_key
 
 logger = logging.getLogger(__name__)
 
@@ -22,12 +22,6 @@ class WorkflowStatus(BaseModel):
     job_id: str
     status: str
     progress: Optional[dict] = None
-
-
-async def verify_api_key(x_api_key: str = Header(None)):
-    if x_api_key != settings.backend_api_key:
-        raise HTTPException(status_code=401, detail="Invalid API key")
-    return True
 
 
 @router.post("/trigger")

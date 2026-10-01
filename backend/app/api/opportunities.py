@@ -4,10 +4,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc
 from app.models.database import get_db
 from app.models.models import Opportunity
+from app.core.security import verify_api_key
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/opportunities", tags=["opportunities"])
+router = APIRouter(
+    prefix="/api/opportunities",
+    tags=["opportunities"],
+    dependencies=[Depends(verify_api_key)],
+)
 
 
 @router.get("")
