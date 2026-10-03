@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Search, Zap, Shield, Check, Play, Users, TrendingUp, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SiteFooter } from "@/components/layout/site-footer";
 
 function Logo({ className = "h-9 w-9" }: { className?: string }) {
   return (
@@ -374,15 +375,7 @@ export default function Home() {
         </main>
 
         {/* Footer */}
-        <footer className="border-t border-border py-6 px-4 bg-secondary/20">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">© 2026 Hire Alert · All Rights Reserved</p>
-            <span className="inline-flex items-center gap-2 text-xs text-primary font-medium px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Beta Testing in Progress
-            </span>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   );
