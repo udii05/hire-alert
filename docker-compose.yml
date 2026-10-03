@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_DB: hire_alert
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
       - "5433:5432"
     volumes:
@@ -42,10 +42,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: "postgresql+asyncpg://postgres:postgres@postgres:5432/hire_alert"
-      DATABASE_URL_SYNC: "postgresql://postgres:postgres@postgres:5432/hire_alert"
+      DATABASE_URL: "postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/hire_alert"
+      DATABASE_URL_SYNC: "postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/hire_alert"
       REDIS_URL: "redis://redis:6379/0"
-      BACKEND_API_KEY: "***REMOVED-BACKEND-API-KEY***"
+      BACKEND_API_KEY: ${BACKEND_API_KEY:?BACKEND_API_KEY is not set. Add it to the root .env file.}
     depends_on:
       postgres:
         condition: service_healthy
@@ -63,11 +63,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/hire_alert"
-      AUTH_SECRET: "***REMOVED-AUTH-SECRET***"
+      DATABASE_URL: "postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/hire_alert"
+      AUTH_SECRET: ${AUTH_SECRET:?AUTH_SECRET is not set. Add it to the root .env file.}
       AUTH_URL: "http://localhost:3000"
       NEXT_PUBLIC_BACKEND_URL: "http://localhost:8000"
-      BACKEND_API_KEY: "***REMOVED-BACKEND-API-KEY***"
+      BACKEND_API_KEY: ${BACKEND_API_KEY:?BACKEND_API_KEY is not set. Add it to the root .env file.}
       REDIS_URL: "redis://redis:6379"
     depends_on:
       postgres:
