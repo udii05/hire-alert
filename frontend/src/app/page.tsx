@@ -359,12 +359,9 @@ export default function Home() {
                   <div className="relative">
                     <h2 className="text-4xl font-bold font-heading text-gradient tracking-tight">Ready to find your next opportunity?</h2>
                     <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">Join thousands of students and professionals discovering better career matches, every day.</p>
-                    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div className="mt-8 flex items-center justify-center">
                       <Link href="/auth/register">
                         <Button size="lg" className="rounded-full h-12 px-10 text-base bg-primary text-primary-foreground hover:bg-primary/90">Get started free <ArrowRight className="ml-2 h-5 w-5" /></Button>
-                      </Link>
-                      <Link href="/auth/login">
-                        <Button size="lg" variant="ghost" className="rounded-full h-12 px-8 text-base text-muted-foreground hover:bg-secondary">Sign in</Button>
                       </Link>
                     </div>
                   </div>
