@@ -50,10 +50,19 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex relative">
+      {/* Grid */}
+      <div className="fixed inset-0 bg-grid pointer-events-none z-0" />
+      {/* Orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+      <div className="orb orb-4" />
+      <div className="orb orb-5" />
+
       {/* Left panel */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1a1035 100%)" }}>
-        <div className="absolute inset-0 bg-grid opacity-[0.03]" />
+      <div className="hidden lg:flex lg:w-1/2 relative z-10">
+        <div className="absolute inset-0 bg-grid opacity-[0.02]" />
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full" style={{ background: "radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)" }} />
         <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)" }} />
 
@@ -88,7 +97,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex flex-col bg-background">
+      <div className="flex-1 flex flex-col bg-background relative z-10">
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <Link href="/" className="flex items-center gap-2.5 lg:hidden">
             <Logo />
