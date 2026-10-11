@@ -101,10 +101,6 @@ export default function LoginPage() {
               <p className="mt-2 text-sm text-muted-foreground">Sign in to your Hire Alert account</p>
             </div>
 
-            <div className="mb-6 rounded-xl border border-primary/25 bg-primary/5 p-3 text-xs text-muted-foreground">
-              Only jobs with a <span className="font-semibold text-primary">75% or higher AI match score</span> are shown, sourced from 500+ verified platforms.
-            </div>
-
             <form onSubmit={handleEmailLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>

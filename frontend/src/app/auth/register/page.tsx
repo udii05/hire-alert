@@ -115,10 +115,6 @@ export default function RegisterPage() {
               <p className="mt-2 text-sm text-muted-foreground">Get started with personalized career discovery</p>
             </div>
 
-            <div className="mb-6 rounded-xl border border-primary/25 bg-primary/5 p-3 text-xs text-muted-foreground">
-              Only jobs with a <span className="font-semibold text-primary">75% or higher AI match score</span> are shown, sourced from 500+ verified platforms.
-            </div>
-
             <form onSubmit={handleEmailRegister} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
