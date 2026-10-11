@@ -67,7 +67,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/auth/login">
-                  <Button size="lg" variant="outline" className="rounded-full h-12 px-8 text-base border-border text-foreground hover:bg-secondary">Sign In</Button>
+                  <Button size="lg" variant="outline" className="rounded-full h-12 px-8 text-base border-border text-foreground hover:bg-secondary">Login</Button>
                 </Link>
               </div>
             </div>
