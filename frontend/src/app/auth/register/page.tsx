@@ -98,16 +98,6 @@ export default function RegisterPage() {
 
       {/* Right panel */}
       <div className="flex-1 flex flex-col bg-background relative z-10">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-          <Link href="/" className="flex items-center gap-2.5 lg:hidden">
-            <Logo />
-            <span className="text-lg font-extrabold font-sans">Hire Alert</span>
-          </Link>
-          <Link href="/auth/login" className="text-sm font-medium text-primary hover:text-primary/80 ml-auto">
-            Sign in
-          </Link>
-        </div>
-
         <div className="flex-1 flex items-center justify-center px-4 py-12">
           <div className="w-full max-w-sm">
             <div className="mb-8">
