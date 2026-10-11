@@ -116,7 +116,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between h-16 px-6 lg:px-8">
             <Link href="/dashboard" className="flex items-center gap-3">
               <Logo />
-              <span className="text-lg font-extrabold font-sans tracking-tight">Hire Alert</span>
+              <span className="text-lg font-jetbrains font-bold uppercase tracking-tight">Hire Alert</span>
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8">

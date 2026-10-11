@@ -67,7 +67,7 @@ export function SiteFooter() {
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2.5 w-fit">
               <Logo className="h-8 w-8" />
-              <span className="text-lg font-extrabold font-sans tracking-tight">Hire Alert</span>
+              <span className="text-lg font-jetbrains font-bold uppercase tracking-tight">Hire Alert</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
               AI agents discover, score, and track jobs, internships, hackathons, and

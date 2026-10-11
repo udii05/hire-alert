@@ -33,7 +33,7 @@ export default function Home() {
         <header className="sticky top-0 z-50 glass border-b border-border/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
-              <div className="flex items-center gap-2.5"><Logo /><span className="text-2xl font-extrabold font-sans tracking-tight">Hire Alert</span></div>
+              <div className="flex items-center gap-2.5"><Logo /><span className="text-2xl font-jetbrains font-bold uppercase tracking-tight">Hire Alert</span></div>
               <nav className="hidden md:flex items-center gap-8">
                 <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</a>
                 <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">How it works</a>

@@ -14,7 +14,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2.5">
               <Logo />
-              <span className="text-xl font-extrabold font-sans tracking-tight">Hire Alert</span>
+              <span className="text-xl font-jetbrains font-bold uppercase tracking-tight">Hire Alert</span>
             </Link>
             <nav className="hidden md:flex items-center gap-8">
               <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>

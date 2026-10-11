@@ -61,7 +61,7 @@ export default function LoginPage() {
         <div className="relative flex flex-col justify-between p-12 text-white w-full">
           <Link href="/" className="flex items-center gap-2.5">
             <Logo />
-            <span className="text-xl font-extrabold font-sans">Hire Alert</span>
+            <span className="text-xl font-jetbrains font-bold uppercase">Hire Alert</span>
           </Link>
           <div className="space-y-8">
             <h2 className="text-4xl font-bold font-heading leading-tight">Your AI-powered career discovery platform</h2>

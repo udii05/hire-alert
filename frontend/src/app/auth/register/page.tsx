@@ -69,7 +69,7 @@ export default function RegisterPage() {
         <div className="relative flex flex-col justify-between p-12 text-white w-full">
           <Link href="/" className="flex items-center gap-2.5">
             <Logo />
-            <span className="text-xl font-extrabold font-sans">Hire Alert</span>
+            <span className="text-xl font-jetbrains font-bold uppercase">Hire Alert</span>
           </Link>
 
           <div className="space-y-8">
