@@ -99,7 +99,7 @@ export default function RegisterPage() {
       {/* Right panel */}
       <div className="flex-1 flex flex-col relative z-10">
         <div className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-lg">
             <div className="rounded-2xl border border-white/10 bg-black/55 backdrop-blur-2xl p-8 shadow-2xl">
               <div className="mb-8">
                 <h1 className="text-3xl font-bold font-heading tracking-tight text-gradient">Create your account</h1>
