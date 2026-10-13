@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { auth } from "@/lib/auth";
 
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "llama3.2";
@@ -131,6 +132,13 @@ function buildSystemPrompt(context: any): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Require an authenticated session — this endpoint proxies to a paid/compute-heavy LLM,
+    // and the context it receives is user-specific.
+    const session = await auth();
+    if (!session?.user?.id) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { messages, context } = body;
 
