@@ -119,7 +119,7 @@ export default function RegisterPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="Min 8 chars, 1 uppercase, 1 number, 1 special" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
+                  <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
                   <p className="text-xs text-muted-foreground">At least 8 characters with one uppercase letter, one number, and one special character.</p>
                 </div>
                 <Button type="submit" className="w-full h-11 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
