@@ -99,38 +99,36 @@ export default function RegisterPage() {
       {/* Right panel */}
       <div className="flex-1 flex flex-col relative z-10">
         <div className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="w-full max-w-sm">
-            <div className="rainbow-border rounded-3xl">
-              <div className="rounded-3xl bg-card/80 backdrop-blur-xl p-8 shadow-violet">
-                <div className="mb-8">
-                  <h1 className="text-3xl font-bold font-heading tracking-tight text-gradient">Create your account</h1>
-                  <p className="mt-2 text-sm text-muted-foreground">Get started with personalized career discovery</p>
-                </div>
-
-                <form onSubmit={handleEmailRegister} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Input id="password" type="password" placeholder="At least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
-                  </div>
-                  <Button type="submit" className="w-full h-11 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
-                    {isLoading ? "Creating account..." : "Create Account"}
-                    {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
-                  </Button>
-                </form>
-
-                <p className="mt-6 text-center text-sm text-muted-foreground">
-                  Already have an account?{" "}
-                  <Link href="/auth/login" className="font-medium text-primary hover:text-primary/80">Sign in</Link>
-                </p>
+          <div className="w-full max-w-md">
+            <div className="rounded-2xl border border-white/10 bg-black/55 backdrop-blur-2xl p-8 shadow-2xl">
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold font-heading tracking-tight text-gradient">Create your account</h1>
+                <p className="mt-2 text-sm text-muted-foreground">Get started with personalized career discovery</p>
               </div>
+
+              <form onSubmit={handleEmailRegister} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input id="name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input id="password" type="password" placeholder="At least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
+                </div>
+                <Button type="submit" className="w-full h-11 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
+                  {isLoading ? "Creating account..." : "Create Account"}
+                  {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
+                </Button>
+              </form>
+
+              <p className="mt-6 text-center text-sm text-muted-foreground">
+                Already have an account?{" "}
+                <Link href="/auth/login" className="font-medium text-primary hover:text-primary/80">Sign in</Link>
+              </p>
             </div>
           </div>
         </div>
