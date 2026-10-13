@@ -5,6 +5,11 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
+import { normalizeEmail } from "@/lib/validators";
+
+// Fixed dummy hash so a missing user still costs one bcrypt compare.
+// This keeps response time constant and prevents timing-based user enumeration.
+const DUMMY_HASH = bcrypt.hashSync("invalid-password-placeholder", 12);
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -45,7 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Email and password are required");
         }
 
-        const email = credentials.email as string;
+        const email = normalizeEmail(credentials.email as string);
         const password = credentials.password as string;
 
         const user = await prisma.user.findUnique({
@@ -53,6 +58,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
 
         if (!user || !user.password) {
+          // Constant-time: burn a bcrypt compare anyway so timing doesn't
+          // reveal whether the email exists.
+          await bcrypt.compare(password, DUMMY_HASH);
           throw new Error("Invalid email or password");
         }
 

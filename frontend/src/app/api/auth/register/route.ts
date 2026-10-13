@@ -1,23 +1,31 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
+import { normalizeEmail, isValidEmail, validatePasswordStrength } from "@/lib/validators";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email: rawEmail, password } = await request.json();
 
-    if (!name || !email || !password) {
+    if (!name || !rawEmail || !password) {
       return NextResponse.json(
         { error: "Name, email, and password are required" },
         { status: 400 }
       );
     }
 
-    if (password.length < 8) {
+    const email = normalizeEmail(String(rawEmail));
+
+    if (!isValidEmail(email)) {
       return NextResponse.json(
-        { error: "Password must be at least 8 characters" },
+        { error: "Please enter a valid email address" },
         { status: 400 }
       );
+    }
+
+    const passwordError = validatePasswordStrength(String(password));
+    if (passwordError) {
+      return NextResponse.json({ error: passwordError }, { status: 400 });
     }
 
     const existing = await prisma.user.findUnique({

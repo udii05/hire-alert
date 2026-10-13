@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Sparkles, Zap, Target } from "lucide-react";
 import { toast } from "sonner";
+import { validatePasswordStrength } from "@/lib/validators";
 
 function Logo({ className = "h-9 w-9" }: { className?: string }) {
   return (
@@ -35,7 +36,8 @@ export default function RegisterPage() {
   async function handleEmailRegister(e: React.FormEvent) {
     e.preventDefault();
     setIsLoading(true);
-    if (password.length < 8) { toast.error("Password must be at least 8 characters"); setIsLoading(false); return; }
+    const pwError = validatePasswordStrength(password);
+    if (pwError) { toast.error(pwError); setIsLoading(false); return; }
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -117,7 +119,8 @@ export default function RegisterPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="At least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
+                  <Input id="password" type="password" placeholder="Min 8 chars, 1 uppercase, 1 number, 1 special" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} className="h-11 rounded-xl" />
+                  <p className="text-xs text-muted-foreground">At least 8 characters with one uppercase letter, one number, and one special character.</p>
                 </div>
                 <Button type="submit" className="w-full h-11 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
                   {isLoading ? "Creating account..." : "Create Account"}
